@@ -1,7 +1,7 @@
 import {useState} from "react";
 import "./App.css";
 import MenuTabs from "./MenuTabs.tsx";
-import fetch from "node-fetch";
+// import fetch from "node-fetch";
 // Had to comment this out for my laptop :(
 // import {colors} from "../../../../../../AppData/Local/deno/npm/registry.npmjs.org/debug/4.3.7/src/browser.js";
 
