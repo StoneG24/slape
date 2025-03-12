@@ -2,10 +2,8 @@ package pipeline
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"time"
 
@@ -14,6 +12,7 @@ import (
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 	"github.com/fatih/color"
+	"github.com/gofiber/fiber/v2"
 	"github.com/openai/openai-go"
 )
 
@@ -54,66 +53,46 @@ type simpleResponse struct {
 }
 
 // SimplePipelineSetupRequest, handlerfunc expects GET method and returns nothing
-func (s *SimplePipeline) SimplePipelineSetupRequest(w http.ResponseWriter, req *http.Request) {
+func SimplePipelineSetupRequest(c *fiber.Ctx) error {
 	apiClient, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
 		color.Red("%s", err)
-		return
-	}
-	go api.Cors(w, req)
-
-	if req.Method != http.MethodPost {
-		w.WriteHeader(http.StatusBadRequest)
-		return
+		return err
 	}
 
-	var setupPayload simpleSetupPayload
+	PickImage()
 
-	err = json.NewDecoder(req.Body).Decode(&setupPayload)
-	if err != nil {
-		color.Red("%s", err)
-		w.WriteHeader(http.StatusUnprocessableEntity)
-		w.Write([]byte("Error unexpected request format"))
-		return
-	}
+	s := new(simpleSetupPayload)
 
-	s.PickImage()
+	c.BodyParser(s)
 
-	s.Model = setupPayload.Model
 	s.DockerClient = apiClient
 	s.GPU = IsGPU()
 
 	go s.Setup(context.Background())
 
-	w.WriteHeader(http.StatusOK)
+	c.SendStatus(200)
+
+	return nil
 }
 
 // simplerequest is used to handle simple requests as needed.
-func (s *SimplePipeline) SimplePipelineGenerateRequest(w http.ResponseWriter, req *http.Request) {
-	ctx := context.Background()
-	go api.Cors(w, req)
+func SimplePipelineGenerateRequest(c *fiber.Ctx) error {
 
-	var simplePayload simpleRequest
+	s := new(simpleRequest)
 
-	err := json.NewDecoder(req.Body).Decode(&simplePayload)
-	if err != nil {
-		color.Red("%s", err)
-		w.WriteHeader(http.StatusUnprocessableEntity)
-		w.Write([]byte("Error unexpected request format"))
-		return
-	}
+	c.BodyParser(s)
 
-	promptChoice, maxtokens := processPrompt(simplePayload.Mode)
+	promptChoice, maxtokens := processPrompt(s.Mode)
 
 	// generate a response
-	result, err := s.Generate(simplePayload.Prompt, promptChoice, maxtokens, vars.OpenaiClient)
+	result, err := Generate(s.Prompt, promptChoice, maxtokens, vars.OpenaiClient)
 	if err != nil {
-		color.Red("%s", err)
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Error getting generation from model"))
+		c.SendStatus(200)
+		c.SendString("Error getting generation from model")
 		go s.Shutdown(ctx)
 
-		return
+		return err
 	}
 
 	go s.Shutdown(ctx)
@@ -125,21 +104,12 @@ func (s *SimplePipeline) SimplePipelineGenerateRequest(w http.ResponseWriter, re
 		Answer: result,
 	}
 
-	json, err := json.Marshal(respPayload)
-	if err != nil {
-		color.Red("%s", err)
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Error marshaling your response from model"))
-		return
-	}
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(json)
+	return c.JSON(respPayload)
 }
 
-func (s *SimplePipeline) Setup(ctx context.Context) error {
+func Setup(ctx context.Context, cli *client.Client, containerImage string) error {
 
-	reader, err := PullImage(s.DockerClient, ctx, s.ContainerImage)
+	reader, err := PullImage(cli, ctx, containerImage)
 	if err != nil {
 		color.Red("%s", err)
 		return err
@@ -151,13 +121,13 @@ func (s *SimplePipeline) Setup(ctx context.Context) error {
 	defer reader.Close()
 
 	createResponse, err := CreateContainer(
-		s.DockerClient,
+		cli,
 		"8000",
 		"",
 		ctx,
-		s.Model,
-		s.ContainerImage,
-		s.GPU,
+		c.Model,
+		containerImage,
+		IsGPU(),
 	)
 
 	if err != nil {
@@ -167,7 +137,7 @@ func (s *SimplePipeline) Setup(ctx context.Context) error {
 	}
 
 	// start container
-	err = (s.DockerClient).ContainerStart(context.Background(), createResponse.ID, container.StartOptions{})
+	err = cli.ContainerStart(context.Background(), createResponse.ID, container.StartOptions{})
 	if err != nil {
 		color.Red("%s", err)
 		return err
