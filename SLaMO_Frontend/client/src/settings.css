@@ -1,0 +1,145 @@
+.Dark_background {
+    position: fixed;
+    width: 10000px;
+    height: 10000px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;   
+    z-index: -1;
+    background-color: #070F2B;
+  }
+  
+  .Pink_background {
+    position: fixed;
+    width: 10000px;
+    height: 10000px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;   
+    z-index: -1;
+    background-color: #E0D5DB;
+    color: black;
+  }
+  
+  .Light_background {
+    position: fixed;
+    width: 10000px;
+    height: 10000px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;   
+    z-index: -1;
+    background-color: #F1F0E8;
+    color: black;
+  }
+
+  .Dark_settingsDiv {
+    color: white;
+  }
+
+  .Pink_settingsDiv {
+    color: black;
+  }
+
+  .Light_settingsDiv {
+    color: black;
+  }
+
+  button.Light_Submit
+{
+  height: 40px;
+  border-radius: 8px;
+  border: 0px;
+  background-color: #697892;
+  color: white;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  margin-left: 0px;
+}
+
+button.Dark_Submit {
+  height: 40px;
+  border-radius: 8px;
+  border: 0px;
+  background-color: #5f66b2;
+  color: white;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  margin-left: 0px;
+}
+
+select.Light_colorSetting{
+  height: 25px;
+    background-color: #89BAD3;
+    color: white;
+    border: 0px;
+    font-family: inherit;
+    font-size: 1.5em;
+    font-weight: 500;
+    border-radius: 8px;
+    height: 42px;
+    width: 100px;
+    padding-left: 5px;
+}
+
+select.Dark_colorSetting{
+  height: 25px;
+    background-color: #494f95;
+    color: white;
+    border: 0px;
+    font-family: inherit;
+    font-size: 1.5em;
+    font-weight: 500;
+    border-radius: 8px;
+    height: 42px;
+    width: 100px;
+    padding-left: 5px;
+}
+
+select.Pink_colorSetting{
+  height: 25px;
+    background-color: rgb(179, 60, 177);
+    color: white;
+    border: 0px;
+    font-family: inherit;
+    font-size: 1.5em;
+    font-weight: 500;
+    border-radius: 8px;
+    height: 42px;
+    width: 100px;
+    padding-left: 5px;
+}
+
+.Light_settingTitle {
+  font-family: inherit;
+  font-weight: 600;
+  position: relative;
+  top: -175px;
+  color: black;
+  
+}
+
+.Dark_settingTitle {
+  font-family: inherit;
+  font-weight: 600;
+  position: relative;
+  top: -175px;
+  color: white;
+  
+}
+
+.Pink_settingTitle {
+  font-family: inherit;
+  font-weight: 600;
+  position: relative;
+  top: -175px;
+  color: black;
+  
+}

@@ -1,53 +1,62 @@
-import * as fs from "node:fs";
+import DropDownButton from "./DropDownButton.tsx";
 import MenuTabs from "./MenuTabs.tsx";
-import { useState } from "react";
+import {useState} from "react";
+import "./settings.css";
+import "./index.css";
 
 export default function Settings() {
+  if (localStorage.getItem("PromptSetting") == null)
+    localStorage.setItem("PromptSetting", "Automatic");
+  if (localStorage.getItem("StyleSetting") == null)
+    localStorage.setItem("StyleSetting", "Dark");
 
-    const [ PromptSetting, setPromptSetting ] = useState("Automatic")
-    const [ StyleSetting, setStyleSetting ] = useState("Pink")
-    const [ SettingsObject, setSettingsObject ] = useState({promptType: "", styleType: ""})
+  const themeColor: string | null = localStorage.getItem("StyleSetting");
 
-    const promptRadioOptions = ["Automatic", "Manual", "Mixed"];
-    const styleRadioOptions = ["Pink", "Dark", "Light"];
+  const [PromptSetting, setPromptSetting] = useState(
+    localStorage.getItem("PromptSetting")
+  );
+  const [StyleSetting, setStyleSetting] = useState(
+    localStorage.getItem("StyleSetting")
+  );
 
-    const promptRadioElements = promptRadioOptions.map((option) => {
-        return (
-            <div>
-                <label htmlFor={option}>{`${option}:`}</label>
-                <input type="radio" id={option} value={option} checked={ PromptSetting === option} onChange={() => {setPromptSetting(option); setSettingsObject({...SettingsObject, promptType: option});}}/>
-            </div>
-        )
-    })
-    
-    const styleRadioElements = styleRadioOptions.map((option) => {
-        return (
-            <div>
-                <label htmlFor={option}>{`${option}:`}</label>
-                <input type="radio" id={option} value={option} checked={ StyleSetting === option} onChange={() => {setStyleSetting(option); setSettingsObject({...SettingsObject, styleType: option});}}/>
-            </div>
-        )
-    })
+  const promptDropDownOptions = [
+    {type: "Automatic", name: "Automatic"},
+    {type: "Manual", name: "Manual"},
+    {type: "Mixed", name: "Mixed"},
+  ];
+  const styleDropDownOptions = [
+    {type: "Pink", name: "Pink"},
+    {type: "Dark", name: "Dark"},
+    {type: "Light", name: "Light"},
+  ];
 
-    async function settingsButtonHandler() {
-        console.log(SettingsObject);
+  function settingsButtonHandler() {
+    localStorage.setItem("PromptSetting", PromptSetting);
+    localStorage.setItem("StyleSetting", StyleSetting);
+    globalThis.location.reload();
+  }
 
-
-
-    }
-
-    return(
-        <>
-            <MenuTabs/>
-            <div>
-                <h3>Settings</h3>
-                <p>Prompting Settings</p>
-                {promptRadioElements}
-                <hr/>
-                {styleRadioElements}
-                <hr/>
-                <button onClick={settingsButtonHandler}>Display Settings</button>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className={`${themeColor}_background`} />
+      <MenuTabs />
+      <div className={`${themeColor}_settingsDiv`}>
+        <h1 className={`${themeColor}_settingTitle`}>Settings</h1>
+        <h2>Theme</h2>
+        <DropDownButton
+          className="colorSetting"
+          value={StyleSetting}
+          callBack={setStyleSetting}
+          optionObject={styleDropDownOptions}
+        />
+        <hr />
+        <button
+          className={`${themeColor}_Submit`}
+          onClick={settingsButtonHandler}
+        >
+          Display Settings
+        </button>
+      </div>
+    </>
+  );
 }

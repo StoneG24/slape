@@ -1,0 +1,254 @@
+.Dark_pipelineDiv{
+    text-align: left;
+    background-color: #131C46;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: border-color 0.25s;
+    transition: background 0.15s;
+    color: white;
+    margin: 10px 0px 10px 0px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+    grid-auto-rows: minmax(auto, auto);
+}
+
+.Dark_pipelineDiv:hover {
+    background-color: #1a1f56;
+    border-color: #646cff;
+}
+
+.Dark_pipelineDiv:active {
+    background-color: #646cff;
+}
+
+.Dark_pipelineDiv:focus,
+.Dark_pipelineDiv:focus-visible,
+.Dark_pipelineDiv:focus-within {
+    background-color: #646cff;
+}
+
+
+
+
+.Pink_pipelineDiv{
+    text-align: left;
+    background-color: #B75264;
+    color: black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: border-color 0.25s;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+    grid-auto-rows: minmax(auto, auto);
+}
+
+.Pink_pipelineDiv:hover {
+    background-color: #DEB9CE;
+    border-color: rgb(200, 20, 150);
+}
+
+.Light_pipelineDiv{
+    text-align: left;
+    background-color: #CCD5D5;
+    color: black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: border-color 0.25s;
+    transition: background 0.15s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+    grid-auto-rows: minmax(auto, auto);
+}
+
+.Light_pipelineDiv:hover {
+    background-color: #B3C8CF;
+    border-color: #646cff;
+}
+
+.Light_pipelineDiv:active {
+    background-color: #CCE7E7;
+}
+
+.Light_pipelineDiv:focus,
+.Light_pipelineDiv:focus-visible,
+.Light_pipelineDiv:focus-within {
+    background-color: #CCE7E7;
+}
+
+.pipelineHeader {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.Dark_pipelineButton {
+    grid-column: 6;
+    grid-row: 1;
+    background-color: #292f75;
+    color: white;
+}
+
+.Light_pipelineButton {
+    grid-column: 6;
+    grid-row: 1;
+    background-color: #89BAD3;
+    color: white;
+}
+
+.Pink_pipelineButton {
+    grid-column: 6;
+    grid-row: 1;
+    background-color: #cb3b8d;
+    color: white;
+}
+
+.pipelineModels {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.pipelineDesc {
+    grid-column: 1 / 3;
+    grid-row: 3;
+}
+
+.Light_addModelActive{
+    background-color: #697892;
+    height: 40px;
+    color: white;
+    margin-left: 20px;
+    border-radius: 8px 0px 0px 8px;
+    width: 95px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.Light_addModelInactive{
+    background-color: #A3B8BF;
+    height: 40px;
+    color: black;
+    margin-left: 20px;
+    border-radius: 8px 0px 0px 8px;
+    width: 95px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top:0.55;
+    padding-bottom:0.55;
+    transition: background 0.15;
+}
+
+.Light_addModelInactive:hover{
+    border-color: #A3B8BF;
+    cursor: inherit;
+}
+
+.Light_addModelInactive:active{
+    background-color: #d00000;
+}
+
+.Light_addModelInactive:focus,
+.Light_addModelInactive:focus-visible {
+    border-color: #A3B8BF;
+    outline: none;
+}
+
+.Dark_addModelActive{
+    background-color: #5f66b2;
+    height: 40px;
+    color: white;
+    margin-left: 20px;
+    border-radius: 8px 0px 0px 8px;
+    width: 95px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.Dark_addModelInactive{
+    background-color: #3f3682;
+    height: 40px;
+    color: white;
+    margin-left: 20px;
+    border-radius: 8px 0px 0px 8px;
+    width: 95px;
+    padding-left: 0;
+    padding-right: 0;
+    transition: background 0.15;
+}
+
+.Dark_addModelInactive:hover {
+    border-color: #3f3682;
+    cursor: default;
+}
+
+.Dark_addModelInactive:active{
+    background-color: #d00000;
+}
+
+.Dark_addModelInactive:focus,
+.Dark_addModelInactive:focus-visible {
+    border-color: #3f3682;
+    outline: none;
+}
+
+.Pink_addModel{
+    background-color: #cb3b8d;
+    color: white;
+    margin-left: 20px;
+    border-radius: 8px 0px 0px 8px;
+    width: 95px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+select.Light_modelDropdown{
+    height: 40px;
+    margin-right: 20px;
+    padding-top: 0.55em;
+    padding-bottom: 0.55em;
+    background-color: #89BAD3;
+    border-radius: 0px 8px 8px 0px;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+select.Dark_modelDropdown{
+    height: 40px;
+    margin-right: 20px;
+    padding-top: 0.55em;
+    padding-bottom: 0.55em;
+    background-color: #494f95;
+    border-color: #494f95;
+    border-radius: 0px 8px 8px 0px;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+select.Pink_modelDropdown{
+    height: 40px;
+    margin-right: 20px;
+    background-color: rgb(179, 60, 177);
+    border-radius: 0px 8px 8px 0px;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: 500;
+}

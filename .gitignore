@@ -1,9 +1,9 @@
-models
 build
+models
+logs
 
-frontend/node_modules
-fronted/build
-.env
-frontend/.env
-
-external/crun
+cmd.exe
+slape
+slape.exe
+main.exe
+main

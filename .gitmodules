@@ -1,0 +1,6 @@
+[submodule "MiniRAG"]
+	path = MiniRAG
+	url = https://github.com/HKUDS/MiniRAG
+[submodule "quiver"]
+	path = quiver
+	url = https://github.com/TFMV/quiver

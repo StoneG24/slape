@@ -42,7 +42,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #190e48;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -52,6 +52,32 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+button.Dark_Submit
+{
+  background-color: #535bf2;
+  color: white;
+}
+
+button.Light_Submit
+{
+  height: 40px;
+  border-radius: 8px;
+  border: 0px;
+  background-color: #697892;
+  color: white;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  margin-left: 20px;
+}
+
+button.Pink_Submit
+{
+  background-color: rgb(179, 60, 177);
+  color: white;
 }
 
 @media (prefers-color-scheme: light) {
@@ -71,4 +97,6 @@ button:focus-visible {
 div.fixed {
   position: fixed;
   bottom: 0;
-}
+} 
+
+
